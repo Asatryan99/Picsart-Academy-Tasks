@@ -33,6 +33,9 @@ void push_back (Vector* vector, int value) {
     if (getSize(vector) == getCapacity(vector)) {
         vector -> cap *= 2;
         vector = (int*)ralloc(sizeof(Vector), vector -> cap);
+        for (int i = getCapacity(vector) / 2; getCapacity(vector) * 2; i++) {
+            vector -> vec = 0; 
+        }
     }
     vector -> vec[getSize(vector)] = value;
     vector -> size++;
@@ -46,11 +49,53 @@ void pop_back (Vector* vector) {
     return -1;
 }
 
+void erase (Vector* vector, int pos) {
+    if (pos <= getCapacity(vector)) {
+        for (int i = pos; i < getSize(vector) - 1; i++) {
+            vector -> vec[i] = vector -> vec[i + 1];
+        }
+        setSize(vector, vector -> size--);
+    }
+}
+
+void clear (Vector* vector) {
+    for (int i = 0; i < getSize(vector); i++) {
+        vector -> vec[i] = 0;
+    }
+    setSize(vector, 0);
+}
+
+void shrink_to_fit (Vector* vector) {
+    vector -> cap = vector -> size;
+    vector = (int*)ralloc(sizeof(Vector), vector -> cap);
+}
+
+void reserve (Vector* vector, size_t new_cap) {
+    vector = (int*)ralloc(sizeof(Vector), new_cap);
+    setCapacity(vector, new_cap);
+}
+
+void copyVector (Vector* dest, const Vector* src) {
+    if (getCapacity(dest) < getCapacity(src)) {
+        dest = (int*)realloc(sizeof(Vector), getCapacity(src));
+    }
+    for (int i = 0; i < getSize(src); i++) {
+        dest -> vec[i] = src -> vec[i];
+    }
+    setSize(dest, getSize(src));
+}
+
+void destroyVector(Vector* vector) {
+    free(vector);
+}
 
 void insert (Vector* vector, unsigned int pos, int value) {
     if (getSize(vector) == getCapacity(vector)) {
         vector -> cap *= 2;
-        vector = (int*)ralloc(sizeof(Vector), vector -> cap); 
+        vector = (int*)ralloc(sizeof(Vector), vector -> cap);
+        for (int i = getCapacity(vector) / 2; getCapacity(vector) * 2; i++) {
+            vector -> vec = 0; 
+        }
     }
     if (pos <= getCapacity(vector)) {
         vector -> vec[pos] = value;

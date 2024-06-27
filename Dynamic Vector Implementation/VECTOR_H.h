@@ -23,5 +23,11 @@ size_t setSize (Vector* vector, size_t new_size);
 size_t setCapacity (Vector* vector, size_t new_cap);
 void insert (Vector* vector, unsigned int pos, int value);
 void initializeVector(Vector* vector, int initialCapacity);
+void erase (Vector* vector, int pos);
+void clear (Vector* vector);
+void shrink_to_fit (Vector* vector);
+void reserve (Vector* vector, size_t new_cap);
+void copyVector (Vector* dest, const Vector* src);
+void destroyVector(Vector* vector);
 
 #endif // VECTOR_H
