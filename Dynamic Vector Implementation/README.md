@@ -1,84 +1,111 @@
 # Dynamic Vector Implementation
 
-This project provides an implementation of a dynamic array (vector) in C. The vector is designed to automatically resize as elements are added or removed, allowing for efficient management of a collection of integers.
+# VECTOR_H Library
+
+## Overview
+
+The `VECTOR_H` library provides a dynamic array implementation in C. It offers various functionalities to manage and manipulate vectors, including dynamic resizing, insertion, deletion, and retrieval of elements.
 
 ## Features
 
-- **Dynamic Resizing**: Automatically adjusts its capacity as elements are added or removed.
-- **Basic Operations**: Supports push, pop, insert, and get operations.
-- **Size and Capacity Tracking**: Maintains the current size and capacity of the vector.
+- Dynamic resizing
+- Element insertion and deletion
+- Capacity management
+- Element access
 
-## Getting Started
+## Installation
 
-### Prerequisites
+To use the `VECTOR_H` library in your project, include the header file `VECTOR_H.h`:
 
-- C compiler (e.g., `gcc`)
-- Unix-like operating system (Linux, macOS)
-
-### Files
-
-- `VECTOR_H.h`: Header file containing the definition of the `Vector` structure and function prototypes.
-- `VECTOR_H.c`: Implementation file containing the function definitions.
-- `main.c`: Example usage of the vector.
-
-### Compiling the Program
-
-To compile the program, use the following command:
-
-```bash
-gcc -o vector_example main.c VECTOR_H.c
+```c
+#include "VECTOR_H.h"
 ```
 
-### Running the Program
+## Function Descriptions
 
-After compiling, you can run the program using:
+### Getters and Setters
 
-```bash
-./vector_example
+- **`size_t getSize(const Vector* vector)`**
+  - Returns the current size (number of elements) of the vector.
+  
+- **`size_t getCapacity(const Vector* vector)`**
+  - Returns the current capacity (allocated storage) of the vector.
+  
+- **`void setSize(Vector* vector, size_t new_size)`**
+  - Sets the size of the vector to `new_size`.
+  
+- **`void setCapacity(Vector* vector, size_t new_cap)`**
+  - Sets the capacity of the vector to `new_cap`.
+
+### Element Access
+
+- **`int getat(const Vector* vector, unsigned int pos)`**
+  - Returns the element at position `pos`. Returns `-1` and prints an error message if the position is invalid.
+
+### Capacity Management
+
+- **`bool empty(const Vector* vector)`**
+  - Checks if the vector is empty. Returns `true` if empty, otherwise `false`.
+  
+- **`void reserve(Vector* vector, size_t new_cap)`**
+  - Reserves storage space for at least `new_cap` elements.
+  
+- **`void shrink_to_fit(Vector* vector)`**
+  - Reduces the capacity to fit the current size.
+
+### Element Manipulation
+
+- **`void push_back(Vector* vector, int value)`**
+  - Adds `value` to the end of the vector. If the vector is full, its capacity is doubled.
+  
+- **`void pop_back(Vector* vector)`**
+  - Removes the last element of the vector.
+  
+- **`void erase(Vector* vector, int pos)`**
+  - Removes the element at position `pos`.
+  
+- **`void clear(Vector* vector)`**
+  - Removes all elements from the vector.
+  
+- **`void insert(Vector* vector, unsigned int pos, int value)`**
+  - Inserts `value` at position `pos`.
+
+### Vector Operations
+
+- **`void copyVector(Vector* dest, const Vector* src)`**
+  - Copies the contents of `src` into `dest`.
+  
+- **`void destroyVector(Vector* vector)`**
+  - Frees the memory allocated for the vector.
+  
+- **`void initializeVector(Vector* vector, int initialCapacity)`**
+  - Initializes the vector with an initial capacity of `initialCapacity`.
+
+## Example Usage
+
+```c
+#include "VECTOR_H.h"
+
+int main() {
+    Vector myVector;
+    initializeVector(&myVector, 10);
+    
+    push_back(&myVector, 5);
+    push_back(&myVector, 10);
+    
+    printf("Element at position 1: %d\n", getat(&myVector, 1));
+    
+    pop_back(&myVector);
+    
+    destroyVector(&myVector);
+    return 0;
+}
 ```
-
-## Functions Overview
-
-### `initializeVector`
-
-Initializes a vector with a specified initial capacity.
-
-### `push_back`
-
-Adds an element to the end of the vector, resizing if necessary.
-
-### `pop_back`
-
-Removes the last element from the vector.
-
-### `insert`
-
-Inserts an element at a specified position in the vector, resizing if necessary.
-
-### `getat`
-
-Returns the element at a specified position.
-
-### `empty`
-
-Checks if the vector is empty.
-
-### `getSize`
-
-Returns the current size of the vector.
-
-### `getCapacity`
-
-Returns the current capacity of the vector.
-
-## Usage Example
-
-The `main.c` file provides an example of how to use the vector functions. This includes initializing a vector, adding and removing elements, and accessing elements.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This library is licensed under the MIT License. See the LICENSE file for more details.
 
----
+## Contributions
 
-This README provides an overview of the project, detailing its features, how to get started, and the functionality of its various components.
+Contributions are welcome! Please submit a pull request or open an issue to discuss potential improvements.
