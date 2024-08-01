@@ -231,23 +231,13 @@ void add_new_person () {
         exit(EXIT_FAILURE);
     }
    
-    char* buffer = (char*)calloc(sizeof(char), sizeof(new_person));
     fprintf(database, "%d, %s, %s\n", new_person->id, new_person->FirstName, new_person->LastName);
-    strcat(buffer, "\0");
-    
-    size_t bytes_written = fwrite(buffer, sizeof(char), strlen(buffer), database);
-    if (bytes_written == -1) {
-        perror("write");
-        fclose(database);
-        exit(EXIT_FAILURE);
-    }
 
     if (fclose(database) == -1) {
         perror("close");
         exit(EXIT_FAILURE);
     }
 
-    free(buffer);
     free(new_person);
 }
 
